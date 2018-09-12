@@ -42,6 +42,7 @@ let handlerChildren = function (list, arr) {
   })
 }
 
+// 获得根组织
 router.get('/getRootData', function (req, res) {
   OrgUnitData.find({parentId: '-1'}, function (err, result) {
     res.send(result)
@@ -68,8 +69,10 @@ let resultData = function (req, res, next) {
   res.send(nodeChilds)
 }
 
+// 懒加载下级组织
 router.get('/getChildrenData', [editIsParent, resultData])
 
+// 批量新增组织
 router.post('/addNodeList', function (req, res) {
   // OrgUnitData.find({orgUnitId: req.body.parentId}, function (findError, findResult) {
   //   OrgUnitData.update({orgUnitId: findResult[0].orgUnitId}, {$set: {isParent: true}}, function (updateError, updateResult) {
@@ -100,10 +103,17 @@ router.post('/addNodeList', function (req, res) {
   })
 })
 
+// 批量删除组织
 router.delete('/deleteOrgList', function (req, res) {
   let idList = req.query.deleteIdList.split(',')
   OrgUnitData.remove({'orgUnitId': {$in: idList}}, function (err, result) {
     res.send(result)
+  })
+})
+
+router.get('/getOrgDetail', function (req, res) {
+  OrgUnitData.find({orgUnitId: req.query.orgUnitId}, function (err, result) {
+    res.send(result[0])
   })
 })
 
