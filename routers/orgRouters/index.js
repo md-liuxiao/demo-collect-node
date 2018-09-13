@@ -111,9 +111,10 @@ router.delete('/deleteOrgList', function (req, res) {
   })
 })
 
+// 获取单个组织信息
 router.get('/getOrgDetail', function (req, res) {
   OrgUnitData.find({orgUnitId: req.query.orgUnitId}, function (err, result) {
-    res.send(result[0])
+    res.send(result)
   })
 })
 
