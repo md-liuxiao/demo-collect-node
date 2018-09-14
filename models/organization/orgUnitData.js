@@ -8,7 +8,8 @@ const OrgUnitData = new Schema({
   orgUnitName: String,
   parentUnitName: String,
   parentId: String,
-  isParent: Boolean
+  isParent: Boolean,
+  superReportingDepartmentId: String
 })
 
 module.exports = mongoose.model('orgUnitDatas', OrgUnitData)
